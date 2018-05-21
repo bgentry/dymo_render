@@ -15,6 +15,8 @@ class DymoRender
 
   FONT_DIRS_LINUX = ['/usr/share/fonts/truetype/msttcorefonts'].freeze
 
+  FONT_DIRS = (RUBY_PLATFORM =~ /darwin/ ? FONT_DIRS_MACOS : FONT_DIRS_LINUX).freeze
+
   # 1440 twips per inch (20 per PDF point)
   TWIP = 1440.0
 
@@ -31,8 +33,11 @@ class DymoRender
   # This may be needed for some label types. Zero for now.
   LEFT_MARGIN = 0
 
-  def initialize(xml:, params: {})
+  attr_reader :doc, :font_dirs, :pdf
+
+  def initialize(xml:, font_dirs: FONT_DIRS, params: {})
     @xml = xml
+    @font_dirs = font_dirs
     @params = params
     @doc = Nokogiri::XML(xml)
   end
@@ -66,13 +71,11 @@ class DymoRender
     paper_size[1]
   end
 
-  def self.font_file_for_family(family)
-    dir_list = RUBY_PLATFORM =~ /darwin/ ? FONT_DIRS_MACOS : FONT_DIRS_LINUX
-
+  def self.font_file_for_family(font_dirs, family)
     extensions = [".ttf", ".dfont", ".ttc"]
     names = extensions.map { |ext| [family, ext].join }
 
-    dir_list.each do |dir|
+    font_dirs.each do |dir|
       names.each do |filename|
         file = File.join(dir, filename)
         return file if File.exists?(file)
@@ -82,8 +85,6 @@ class DymoRender
   end
 
   private
-
-  attr_reader :doc, :pdf
 
   def paper_size
     @paper_size ||= begin
@@ -138,7 +139,7 @@ class DymoRender
     valign = valign_from_text_object(text_object)
     begin
       pdf.fill_color color
-      font_file = self.class.font_file_for_family(font_family)
+      font_file = self.class.font_file_for_family(font_dirs, font_family)
       pdf.font(font_file || raise("missing font #{font_family}"))
       # horizontal padding of 1 point
       x += 1
