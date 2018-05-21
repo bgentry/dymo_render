@@ -70,9 +70,9 @@
       <Verticalized>False</Verticalized>
       <StyledText>
         <Element>
-          <String>Sample Text</String>
+          <String>Sample Name</String>
           <Attributes>
-            <Font Family="Roboto" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+            <Font Family="Roboto Mono" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
             <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
           </Attributes>
         </Element>
@@ -98,7 +98,7 @@
         <Element>
           <String>2018-05-17</String>
           <Attributes>
-            <Font Family="Roboto" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+            <Font Family="Roboto Mono" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
             <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
           </Attributes>
         </Element>
