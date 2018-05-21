@@ -1,13 +1,13 @@
 Gem::Specification.new do |s|
-  s.name        = "dymo-render"
+  s.name        = "dymo_render"
   s.version     = "0.0.0"
   s.date        = "2018-05-21"
   s.summary     = "Render PDFs using DYMO XML"
   s.description = "Render PDFs using the XML format from the DYMO Label Maker app"
   s.authors     = ["Blake Gentry", "Tim Morgan"]
   s.email       = "blakesgentry@gmail.com"
-  s.files       = ["lib/dymo-render.rb"]
-  s.homepage    = "http://github.com/bgentry/dymo-render"
+  s.files       = ["lib/dymo_render.rb"]
+  s.homepage    = "http://github.com/bgentry/dymo_render"
   s.license     = "BSD-2-Clause"
 
   s.add_dependency "barby", "~> 0.6.5"

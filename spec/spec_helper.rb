@@ -1,4 +1,4 @@
-require "dymo-render"
+require "dymo_render"
 require "pry"
 
 module DymoRenderSpecHelper

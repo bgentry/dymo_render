@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dymo-render (0.0.0)
+    dymo_render (0.0.0)
       barby (~> 0.6.5)
       nokogiri (~> 1.8.2)
       prawn (~> 2.2.2)
@@ -48,7 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   bundler
-  dymo-render!
+  dymo_render!
   pry
   rake
   rspec
