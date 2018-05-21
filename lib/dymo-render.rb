@@ -31,7 +31,7 @@ class DymoRender
   # This may be needed for some label types. Zero for now.
   LEFT_MARGIN = 0
 
-  def initialize(xml:, params:)
+  def initialize(xml:, params: {})
     @xml = xml
     @params = params
     @doc = Nokogiri::XML(xml)
@@ -126,6 +126,7 @@ class DymoRender
     name &&= name.text
     elements = text_object.css('StyledText Element')
     return if elements.empty?
+
     font = elements.first.css('Attributes Font').first
     font_family = font ? font.attributes['Family'].value : 'Helvetica'
     size = font.attributes['Size'].value.to_i
