@@ -1,11 +1,11 @@
 PATH
   remote: .
   specs:
-    dymo_render (0.0.1)
-      barby (~> 0.6.5)
-      nokogiri (~> 1.8.2)
-      prawn (~> 2.2.2)
-      rqrcode (~> 0.10.1)
+    dymo_render (0.0.2)
+      barby (~> 0.6)
+      nokogiri (~> 1.8)
+      prawn (~> 2.2)
+      rqrcode (~> 0.10)
 
 GEM
   remote: https://rubygems.org/

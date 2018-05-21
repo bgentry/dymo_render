@@ -14,8 +14,8 @@ Gem::Specification.new do |s|
   s.homepage    = "http://github.com/bgentry/dymo_render"
   s.license     = "BSD-2-Clause"
 
-  s.add_dependency "barby", "~> 0.6.5"
-  s.add_dependency "nokogiri", "~> 1.8.2"
-  s.add_dependency "prawn", "~> 2.2.2"
-  s.add_dependency "rqrcode", "~> 0.10.1"
+  s.add_dependency "barby", "~> 0.6"
+  s.add_dependency "nokogiri", "~> 1.8"
+  s.add_dependency "prawn", "~> 2.2"
+  s.add_dependency "rqrcode", "~> 0.10"
 end
