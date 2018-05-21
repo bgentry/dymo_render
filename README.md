@@ -16,6 +16,13 @@ pdf = DymoRender.new(xml: xml_content).render
 File.write("out.pdf", pdf)
 ```
 
+## Features
+
+* Text, custom fonts and custom font directories
+* Barcodes
+  - QR codes
+  - Code 128 Auto, A, B, C
+
 ## License
 
 This project uses the BSD 2-clause simplified license from the dymo-printer-agent project.
