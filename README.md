@@ -2,6 +2,9 @@
 
 Render a PDF from the DYMO Label software's XML `.label` format. This is the same format used by their JavaScript SDK and by their desktop apps.
 
+Here is [a sample label in XML](https://github.com/bgentry/dymo_render/blob/master/spec/fixtures/files/sample_qr.label)
+along with [its rendered PDF output](https://github.com/bgentry/dymo_render/blob/master/spec/fixtures/files/sample_qr.pdf).
+
 ## Installation
 
 ```rb
