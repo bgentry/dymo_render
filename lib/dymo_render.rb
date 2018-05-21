@@ -227,6 +227,13 @@ class DymoRender
       pdf.line_width height
       pdf.horizontal_line x, x + width, at: y + HORIZONTAL_LINE_VERTICAL_FUDGE_BY
       pdf.stroke
+    when 'Rectangle'
+      top_left = [x, y]
+      line_width = shape_object.css("LineWidth").first.text.to_f / TWIP * PDF_POINT
+
+      pdf.line_width line_width
+      pdf.rectangle top_left, width, height
+      pdf.stroke
     else
       puts "unknown shape type #{shape_type}"
     end
