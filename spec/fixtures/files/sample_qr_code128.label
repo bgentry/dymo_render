@@ -41,7 +41,7 @@
       <Rotation>Rotation0</Rotation>
       <IsMirrored>False</IsMirrored>
       <IsVariable>False</IsVariable>
-      <Text>URL:https://app.actualyze.io/plants/ABCDEF012345670000000024</Text>
+      <Text>URL:https://app.actualyze.io/scan/ABCDEF012345670000000024</Text>
       <Type>QRCode</Type>
       <Size>Small</Size>
       <TextPosition>None</TextPosition>
