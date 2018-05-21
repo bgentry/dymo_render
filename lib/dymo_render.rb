@@ -1,3 +1,4 @@
+require "dymo_render/version"
 require 'prawn'
 require 'nokogiri'
 require 'barby'

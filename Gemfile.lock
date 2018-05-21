@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    dymo_render (0.0.0)
+    dymo_render (0.0.1)
       barby (~> 0.6.5)
       nokogiri (~> 1.8.2)
       prawn (~> 2.2.2)

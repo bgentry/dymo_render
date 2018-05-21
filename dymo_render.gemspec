@@ -1,6 +1,10 @@
+lib = File.expand_path("lib", __dir__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require "dymo_render/version"
+
 Gem::Specification.new do |s|
   s.name        = "dymo_render"
-  s.version     = "0.0.0"
+  s.version     = DymoRender::VERSION
   s.date        = "2018-05-21"
   s.summary     = "Render PDFs using DYMO XML"
   s.description = "Render PDFs using the XML format from the DYMO Label Maker app"
