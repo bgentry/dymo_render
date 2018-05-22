@@ -276,6 +276,44 @@ class DymoRender
     code = Barby::Code128.new(content, type)
     outputter = Barby::PrawnOutputter.new(code)
 
+    barcode_height = height
+    barcode_y = y
+
+    text_position = barcode_object.css("TextPosition").first&.text
+    if %w{Top Bottom}.include?(text_position)
+      font_element = barcode_object.css("TextFont").first
+      font_family = font_element.attribute("Family").value
+      font_size = font_element.attribute("Size").value.to_f
+      color = color_from_element(barcode_object.css("ForeColor").first)
+      valign = VALIGNS[text_position]
+
+      pdf.fill_color color
+      font_file = self.class.font_file_for_family(font_dirs, font_family)
+      pdf.font(font_file || raise("missing font #{font_family}"))
+      # horizontal padding of 1 point
+      x += 1
+      width -= 2
+      (box, actual_size) = text_box_with_font_size(
+        content,
+        size: font_size,
+        character_spacing: 0,
+        at: [x, y],
+        width: width,
+        height: height,
+        overflow: :truncate,
+        align: :center,
+        valign: valign,
+        disable_wrap_by_char: true,
+        single_line: true,
+      )
+      # on bottom-aligned boxes, Dymo counts the height of character descenders
+      box.at[1] += box.descender if valign == :bottom
+      box.render
+      code_offset = box.height * 1.25
+      barcode_height -= code_offset
+      barcode_y -= code_offset if valign == :top
+    end
+
     num_dots_x = outputter.full_width
     xdim = width.to_f / num_dots_x
     center_x = x + width.to_f / 2
@@ -290,8 +328,8 @@ class DymoRender
 
     # center in the x direction
     xpos = center_x - width.to_f / 2
-    ypos = y - height
+    ypos = barcode_y - barcode_height
 
-    outputter.annotate_pdf(pdf, { x: xpos, y: ypos, xdim: xdim, height: height });
+    outputter.annotate_pdf(pdf, { x: xpos, y: ypos, xdim: xdim, height: barcode_height });
   end
 end

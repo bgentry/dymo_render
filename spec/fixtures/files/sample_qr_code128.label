@@ -22,8 +22,7 @@
       <Verticalized>False</Verticalized>
       <StyledText>
         <Element>
-          <String>ABCDEF012345670000000024
-05-18-2018 – Sample Text</String>
+          <String>05-18-2018 – Sample Text</String>
           <Attributes>
             <Font Family="Roboto Mono" Size="9" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
             <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
@@ -31,7 +30,7 @@
         </Element>
       </StyledText>
     </TextObject>
-    <Bounds X="57.6" Y="86.39999" Width="3124.8" Height="922.0001"/>
+    <Bounds X="57.6" Y="189.6227" Width="3124.8" Height="818.7775"/>
   </ObjectInfo>
   <ObjectInfo>
     <ShapeObject>
@@ -61,19 +60,19 @@
       <Text>ABCDEF012345670000000024</Text>
       <Type>Code128Auto</Type>
       <Size>Small</Size>
-      <TextPosition>None</TextPosition>
-      <TextFont Family="Arial" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+      <TextPosition>Bottom</TextPosition>
+      <TextFont Family="Roboto Mono" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
       <CheckSumFont Family="Arial" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
       <TextEmbedding>None</TextEmbedding>
       <ECLevel>0</ECLevel>
       <HorizontalAlignment>Center</HorizontalAlignment>
       <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
     </BarcodeObject>
-    <Bounds X="58.62076" Y="1112.655" Width="3123.779" Height="600.9449"/>
+    <Bounds X="58.62076" Y="1153.6" Width="3123.779" Height="560"/>
   </ObjectInfo>
   <ObjectInfo>
     <BarcodeObject>
-      <Name>BARCODE</Name>
+      <Name>QR_CODE</Name>
       <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
       <BackColor Alpha="255" Red="255" Green="255" Blue="255"/>
       <LinkedObjectName></LinkedObjectName>
