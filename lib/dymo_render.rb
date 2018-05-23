@@ -269,7 +269,7 @@ class DymoRender
       xpos = x + xadjust
       ypos = y - height + yadjust
 
-      outputter.annotate_pdf(pdf, { x: xpos, y: ypos, xdim: dim, ydim: dim });
+      outputter.annotate_pdf(pdf, { x: xpos, y: ypos, xdim: dim, ydim: dim, unbleed: 0.05 });
     when 'Code128Auto'
       render_barcode_code128(barcode_object, x, y, width, height, nil)
     when 'Code128A', 'Code128B', 'Code128C'
