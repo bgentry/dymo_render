@@ -239,6 +239,16 @@ class DymoRender
     end
   end
 
+  # (72 pts/in) / (300 dots/in)
+  POINTS_PER_DOT = 0.24
+
+  # fixed number of dots per QR dot in each dimension:
+  DIM_PT_SIZES = {
+    "Small" => POINTS_PER_DOT * 4,
+    "Medium" => POINTS_PER_DOT * 5,
+    "Large" => POINTS_PER_DOT * 6,
+  }.freeze
+
   def render_barcode_object(barcode_object, x, y, width, height)
     case barcode_type = barcode_object.css('Type').first.text
     when 'QRCode'
@@ -247,9 +257,8 @@ class DymoRender
       outputter = Barby::PrawnOutputter.new(code)
       num_dots = outputter.full_width # number of dots in QR
 
-      xdim = width.to_f / num_dots
-      ydim = height.to_f / num_dots
-      dim = [xdim, ydim].min
+      size = barcode_object.css('Size').first&.text || "Small"
+      dim = DIM_PT_SIZES[size]
 
       # If the resulting size in either dimension is smaller than that
       # dimension's specified size, adjust so the code is centered in the
