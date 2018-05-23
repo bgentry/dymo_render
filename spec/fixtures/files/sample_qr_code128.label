@@ -90,6 +90,6 @@
       <HorizontalAlignment>Center</HorizontalAlignment>
       <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
     </BarcodeObject>
-    <Bounds X="2625.594" Y="469.2014" Width="556.8055" Height="565.9722"/>
+    <Bounds X="2462.4" Y="403.2" Width="720" Height="720"/>
   </ObjectInfo>
 </DieCutLabel>
