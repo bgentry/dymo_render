@@ -1,3 +1,4 @@
+require "dymo_render/page_size"
 require "dymo_render/version"
 require 'prawn'
 require 'nokogiri'
@@ -23,16 +24,6 @@ class DymoRender
 
   # 72 PDF points per inch
   PDF_POINT = 72.0
-
-  # TODO: add more label sizes here
-  SIZES = {
-    '30252 Address' => [252, 81],
-    '30330 Return Address' => [144.1, 54],
-    '30334 2-1/4 in x 1-1/4 in' => [162, 90.1],
-  }.freeze
-
-  # This may be needed for some label types. Zero for now.
-  LEFT_MARGIN = 0
 
   attr_reader :doc, :font_dirs, :pdf
 
@@ -64,12 +55,11 @@ class DymoRender
     end
   end
 
-  def paper_height
-    paper_size[0]
-  end
-
-  def paper_width
-    paper_size[1]
+  def page_size
+    @page_size ||= begin
+      elm = doc.css('PaperName').first
+      elm && (PageSize.by_name(elm.text) || raise("unknown paper size #{elm.text}"))
+    end
   end
 
   def self.font_file_for_family(font_dirs, family)
@@ -87,23 +77,20 @@ class DymoRender
 
   private
 
-  def paper_size
-    @paper_size ||= begin
-      elm = doc.css('PaperName').first
-      elm && SIZES[elm.text] || SIZES.values.first
-    end
-  end
-
   def build_pdf
-    @pdf = Prawn::Document.new(page_size: paper_size, margin: [0, 0, 0, 0])
+    @pdf = Prawn::Document.new(
+      page_size: page_size.dimension,
+      margin: page_size.pdf_margin,
+      page_layout: page_size.layout,
+    )
   end
 
   def render_object(object_info)
     bounds = object_info.css('Bounds').first.attributes
-    x = ((bounds['X'].value.to_i / TWIP) - LEFT_MARGIN) * PDF_POINT
-    y = paper_size.last - (bounds['Y'].value.to_i / TWIP * PDF_POINT)
-    width = ((bounds['Width'].value.to_i / TWIP) - LEFT_MARGIN) * PDF_POINT
-    height = bounds['Height'].value.to_i / TWIP * PDF_POINT
+    x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - page_size.pdf_margin[3]
+    y = page_size.pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
+    width = (bounds['Width'].value.to_f * PDF_POINT / TWIP)
+    height = (bounds['Height'].value.to_f * PDF_POINT / TWIP)
 
     object = object_info.children.find(&:element?)
     case object.name
@@ -142,9 +129,6 @@ class DymoRender
       pdf.fill_color color
       font_file = self.class.font_file_for_family(font_dirs, font_family)
       pdf.font(font_file || raise("missing font #{font_family}"))
-      # horizontal padding of 1 point
-      x += 1
-      width -= 2
       (box, actual_size) = text_box_with_font_size(
         strings.join,
         size: size,
