@@ -107,7 +107,7 @@ class DymoRender
   def render_object(object_info)
     bounds = object_info.css('Bounds').first.attributes
     x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - pdf_margin[3]
-    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
+    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP) - pdf_margin[2]
     width = (bounds['Width'].value.to_f * PDF_POINT / TWIP)
     height = (bounds['Height'].value.to_f * PDF_POINT / TWIP)
 
