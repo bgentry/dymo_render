@@ -148,6 +148,9 @@ class DymoRender
       pdf.fill_color color
       font_file = self.class.font_file_for_family(font_dirs, font_family)
       pdf.font(font_file || raise("missing font #{font_family}"))
+      # horizontal padding of 1 point
+      x += 1
+      width -= 2
       (box, actual_size) = text_box_with_font_size(
         strings.join,
         size: size,
