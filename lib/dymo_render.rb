@@ -107,7 +107,7 @@ class DymoRender
   def render_object(object_info)
     bounds = object_info.css('Bounds').first.attributes
     x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - pdf_margin[3]
-    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
+    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP) - pdf_margin[2]
     width = (bounds['Width'].value.to_f * PDF_POINT / TWIP)
     height = (bounds['Height'].value.to_f * PDF_POINT / TWIP)
 
@@ -148,6 +148,9 @@ class DymoRender
       pdf.fill_color color
       font_file = self.class.font_file_for_family(font_dirs, font_family)
       pdf.font(font_file || raise("missing font #{font_family}"))
+      # horizontal padding of 1 point
+      x += 1
+      width -= 2
       (box, actual_size) = text_box_with_font_size(
         strings.join,
         size: size,
