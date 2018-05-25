@@ -8,13 +8,13 @@
   </DrawCommands>
   <ObjectInfo>
     <TextObject>
-      <Name>Text</Name>
+      <Name>PLANT_BATCH_NAME</Name>
       <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
       <BackColor Alpha="0" Red="255" Green="255" Blue="255"/>
       <LinkedObjectName></LinkedObjectName>
       <Rotation>Rotation0</Rotation>
       <IsMirrored>False</IsMirrored>
-      <IsVariable>True</IsVariable>
+      <IsVariable>False</IsVariable>
       <HorizontalAlignment>Left</HorizontalAlignment>
       <VerticalAlignment>Top</VerticalAlignment>
       <TextFitMode>None</TextFitMode>
@@ -22,15 +22,111 @@
       <Verticalized>False</Verticalized>
       <StyledText>
         <Element>
-          <String>05-18-2018 – Sample Text</String>
+          <String>ABCDEF012345670000000024</String>
           <Attributes>
-            <Font Family="Roboto Mono" Size="9" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+            <Font Family="Roboto Mono" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
             <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
           </Attributes>
         </Element>
       </StyledText>
     </TextObject>
-    <Bounds X="57.6" Y="189.6227" Width="3124.8" Height="818.7775"/>
+    <Bounds X="57.6" Y="86.39999" Width="3124.8" Height="288"/>
+  </ObjectInfo>
+  <ObjectInfo>
+    <TextObject>
+      <Name>STRAIN_NAME</Name>
+      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+      <BackColor Alpha="0" Red="255" Green="255" Blue="255"/>
+      <LinkedObjectName></LinkedObjectName>
+      <Rotation>Rotation0</Rotation>
+      <IsMirrored>False</IsMirrored>
+      <IsVariable>False</IsVariable>
+      <HorizontalAlignment>Left</HorizontalAlignment>
+      <VerticalAlignment>Top</VerticalAlignment>
+      <TextFitMode>None</TextFitMode>
+      <UseFullFontHeight>True</UseFullFontHeight>
+      <Verticalized>False</Verticalized>
+      <StyledText>
+        <Element>
+          <String>Sample Text</String>
+          <Attributes>
+            <Font Family="Roboto" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+            <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+          </Attributes>
+        </Element>
+      </StyledText>
+    </TextObject>
+    <Bounds X="57.6" Y="374.4" Width="3124.8" Height="288"/>
+  </ObjectInfo>
+  <ObjectInfo>
+    <BarcodeObject>
+      <Name>QR_CODE</Name>
+      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+      <BackColor Alpha="255" Red="255" Green="255" Blue="255"/>
+      <LinkedObjectName></LinkedObjectName>
+      <Rotation>Rotation0</Rotation>
+      <IsMirrored>False</IsMirrored>
+      <IsVariable>False</IsVariable>
+      <Text>URL:https://actualyze.app/scan/plant_batch/4iy3NLZ5RnzHTJBpsARXVR</Text>
+      <Type>QRCode</Type>
+      <Size>Small</Size>
+      <TextPosition>None</TextPosition>
+      <TextFont Family="Helvetica" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+      <CheckSumFont Family="Helvetica" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+      <TextEmbedding>None</TextEmbedding>
+      <ECLevel>0</ECLevel>
+      <HorizontalAlignment>Center</HorizontalAlignment>
+      <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
+    </BarcodeObject>
+    <Bounds X="2239.277" Y="270.2094" Width="864" Height="864"/>
+  </ObjectInfo>
+  <ObjectInfo>
+    <TextObject>
+      <Name>PLANTED_DATE</Name>
+      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+      <BackColor Alpha="0" Red="255" Green="255" Blue="255"/>
+      <LinkedObjectName></LinkedObjectName>
+      <Rotation>Rotation0</Rotation>
+      <IsMirrored>False</IsMirrored>
+      <IsVariable>False</IsVariable>
+      <HorizontalAlignment>Left</HorizontalAlignment>
+      <VerticalAlignment>Top</VerticalAlignment>
+      <TextFitMode>None</TextFitMode>
+      <UseFullFontHeight>True</UseFullFontHeight>
+      <Verticalized>False</Verticalized>
+      <StyledText>
+        <Element>
+          <String>05-21-2018</String>
+          <Attributes>
+            <Font Family="Roboto" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+            <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+          </Attributes>
+        </Element>
+      </StyledText>
+    </TextObject>
+    <Bounds X="57.6" Y="659.5289" Width="3124.8" Height="288"/>
+  </ObjectInfo>
+  <ObjectInfo>
+    <BarcodeObject>
+      <Name>BARCODE</Name>
+      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
+      <BackColor Alpha="255" Red="255" Green="255" Blue="255"/>
+      <LinkedObjectName></LinkedObjectName>
+      <Rotation>Rotation0</Rotation>
+      <IsMirrored>False</IsMirrored>
+      <IsVariable>False</IsVariable>
+      <Text>ABCDEF012345670000000024</Text>
+      <Type>Code128Auto</Type>
+      <Size>Small</Size>
+      <TextPosition>Bottom</TextPosition>
+      <TextFont Family="Roboto Mono" Size="7" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+      <CheckSumFont Family="Helvetica" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
+      <TextEmbedding>None</TextEmbedding>
+      <ECLevel>0</ECLevel>
+      <HorizontalAlignment>Center</HorizontalAlignment>
+      <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
+    </BarcodeObject>
+    <Bounds X="57.6" Y="1113.6" Width="3124.8" Height="600"/>
   </ObjectInfo>
   <ObjectInfo>
     <ShapeObject>
@@ -44,52 +140,8 @@
       <ShapeType>Rectangle</ShapeType>
       <LineWidth>20</LineWidth>
       <LineAlignment>LeftOrTop</LineAlignment>
-      <FillColor Alpha="112" Red="0" Green="0" Blue="0"/>
+      <FillColor Alpha="61" Red="0" Green="0" Blue="0"/>
     </ShapeObject>
-    <Bounds X="642.3998" Y="508.2303" Width="560" Height="560"/>
-  </ObjectInfo>
-  <ObjectInfo>
-    <BarcodeObject>
-      <Name>Barcode</Name>
-      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
-      <BackColor Alpha="0" Red="255" Green="255" Blue="255"/>
-      <LinkedObjectName></LinkedObjectName>
-      <Rotation>Rotation0</Rotation>
-      <IsMirrored>False</IsMirrored>
-      <IsVariable>True</IsVariable>
-      <Text>ABCDEF012345670000000024</Text>
-      <Type>Code128Auto</Type>
-      <Size>Small</Size>
-      <TextPosition>Bottom</TextPosition>
-      <TextFont Family="Roboto Mono" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
-      <CheckSumFont Family="Arial" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
-      <TextEmbedding>None</TextEmbedding>
-      <ECLevel>0</ECLevel>
-      <HorizontalAlignment>Center</HorizontalAlignment>
-      <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
-    </BarcodeObject>
-    <Bounds X="58.62076" Y="1153.6" Width="3123.779" Height="560"/>
-  </ObjectInfo>
-  <ObjectInfo>
-    <BarcodeObject>
-      <Name>QR_CODE</Name>
-      <ForeColor Alpha="255" Red="0" Green="0" Blue="0"/>
-      <BackColor Alpha="255" Red="255" Green="255" Blue="255"/>
-      <LinkedObjectName></LinkedObjectName>
-      <Rotation>Rotation0</Rotation>
-      <IsMirrored>False</IsMirrored>
-      <IsVariable>False</IsVariable>
-      <Text>URL:https://actualyze.io/scan/ABCDEF012345670000000024</Text>
-      <Type>QRCode</Type>
-      <Size>Small</Size>
-      <TextPosition>None</TextPosition>
-      <TextFont Family="Helvetica" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
-      <CheckSumFont Family="Helvetica" Size="10" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
-      <TextEmbedding>None</TextEmbedding>
-      <ECLevel>0</ECLevel>
-      <HorizontalAlignment>Center</HorizontalAlignment>
-      <QuietZonesPadding Left="0" Right="0" Top="0" Bottom="0"/>
-    </BarcodeObject>
-    <Bounds X="2462.4" Y="403.2" Width="720" Height="720"/>
+    <Bounds X="1479.783" Y="426.9531" Width="561.6" Height="561.6"/>
   </ObjectInfo>
 </DieCutLabel>
