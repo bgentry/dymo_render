@@ -1,3 +1,4 @@
+require "dymo_render/page_size"
 require "dymo_render/version"
 require 'prawn'
 require 'nokogiri'
@@ -24,22 +25,13 @@ class DymoRender
   # 72 PDF points per inch
   PDF_POINT = 72.0
 
-  # TODO: add more label sizes here
-  SIZES = {
-    '30252 Address' => [252, 81],
-    '30330 Return Address' => [144.1, 54],
-    '30334 2-1/4 in x 1-1/4 in' => [162, 90.1],
-  }.freeze
+  attr_reader :doc, :font_dirs, :params, :pdf, :qr_level
 
-  # This may be needed for some label types. Zero for now.
-  LEFT_MARGIN = 0
-
-  attr_reader :doc, :font_dirs, :pdf
-
-  def initialize(xml:, font_dirs: FONT_DIRS, params: {})
+  def initialize(xml:, font_dirs: FONT_DIRS, params: {}, qr_level: nil)
     @xml = xml
     @font_dirs = font_dirs
     @params = params
+    @qr_level = qr_level
     @doc = Nokogiri::XML(xml)
   end
 
@@ -57,19 +49,24 @@ class DymoRender
   end
 
   def orientation
-    if doc.css('PaperOrientation').first&.text == 'Landscape'
-      'landscape'
-    else
-      'portrait'
+    @orientation ||= begin
+      if doc.css("PaperOrientation").first&.text == "Landscape"
+        :landscape
+      else
+        :portrait
+      end
     end
   end
 
-  def paper_height
-    paper_size[0]
+  def landscape?
+    orientation == :landscape
   end
 
-  def paper_width
-    paper_size[1]
+  def page_size
+    @page_size ||= begin
+      elm = doc.css('PaperName').first
+      elm && (PageSize.by_name(elm.text) || raise("unknown paper size #{elm.text}"))
+    end
   end
 
   def self.font_file_for_family(font_dirs, family)
@@ -87,23 +84,32 @@ class DymoRender
 
   private
 
-  def paper_size
-    @paper_size ||= begin
-      elm = doc.css('PaperName').first
-      elm && SIZES[elm.text] || SIZES.values.first
-    end
+  def pdf_margin
+    @pdf_margin ||= landscape? ? page_size.pdf_margin_landscape : page_size.pdf_margin
+  end
+
+  def pdf_height
+    landscape? ? page_size.dimension[0] : page_size.dimension[1]
+  end
+
+  def pdf_width
+    landscape? ? page_size.dimension[1] : page_size.dimension[0]
   end
 
   def build_pdf
-    @pdf = Prawn::Document.new(page_size: paper_size, margin: [0, 0, 0, 0])
+    @pdf = Prawn::Document.new(
+      page_size: page_size.dimension,
+      margin: pdf_margin,
+      page_layout: orientation,
+    )
   end
 
   def render_object(object_info)
     bounds = object_info.css('Bounds').first.attributes
-    x = ((bounds['X'].value.to_i / TWIP) - LEFT_MARGIN) * PDF_POINT
-    y = paper_size.last - (bounds['Y'].value.to_i / TWIP * PDF_POINT)
-    width = ((bounds['Width'].value.to_i / TWIP) - LEFT_MARGIN) * PDF_POINT
-    height = bounds['Height'].value.to_i / TWIP * PDF_POINT
+    x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - pdf_margin[3]
+    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
+    width = (bounds['Width'].value.to_f * PDF_POINT / TWIP)
+    height = (bounds['Height'].value.to_f * PDF_POINT / TWIP)
 
     object = object_info.children.find(&:element?)
     case object.name
@@ -142,9 +148,6 @@ class DymoRender
       pdf.fill_color color
       font_file = self.class.font_file_for_family(font_dirs, font_family)
       pdf.font(font_file || raise("missing font #{font_family}"))
-      # horizontal padding of 1 point
-      x += 1
-      width -= 2
       (box, actual_size) = text_box_with_font_size(
         strings.join,
         size: size,
@@ -253,7 +256,7 @@ class DymoRender
     case barcode_type = barcode_object.css('Type').first.text
     when 'QRCode'
       content = barcode_object.css('Text').first.text
-      code = Barby::QrCode.new(content, level: :m)
+      code = Barby::QrCode.new(content, level: qr_level)
       outputter = Barby::PrawnOutputter.new(code)
       num_dots = outputter.full_width # number of dots in QR
 
