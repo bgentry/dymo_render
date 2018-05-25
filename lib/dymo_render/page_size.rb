@@ -7,7 +7,6 @@ class DymoRender
         name: "30252 Address",
         dimension: [78.96, 252.0],
         imageable_area: [4.32, 4.32, 76.07, 235.44],
-        landscape: true,
         slug: "w79h252",
       },
       {
@@ -15,7 +14,6 @@ class DymoRender
         name: "30330 Return Address",
         dimension: [54.0, 144.0],
         imageable_area: [4.08, 4.32, 51.12, 127.68],
-        landscape: true,
         slug: "w54h144.1",
       },
       {
@@ -23,45 +21,28 @@ class DymoRender
         name: "30334 2-1/4 in x 1-1/4 in",
         dimension: [162.0, 90.0],
         imageable_area: [2.88, 4.32, 159.12, 85.68],
-        landscape: false,
         slug: "30334_2-1_4_in_x_1-1_4_in",
       },
     ].freeze
 
-    attr_reader :id, :name, :dimension, :imageable_area, :landscape, :slug
+    attr_reader :id, :name, :dimension, :imageable_area, :slug
 
-    def initialize(id: "", name:, dimension:, imageable_area:, landscape:, slug:)
+    def initialize(id: "", name:, dimension:, imageable_area:, slug:)
       @id = id
       @name = name
       @dimension = dimension
       @imageable_area = imageable_area
-      @landscape = landscape
       @slug = slug
-    end
-
-    def landscape?
-      landscape
-    end
-
-    def layout
-      landscape? ? :landscape : :portrait
-    end
-
-    def pdf_height
-      landscape? ? dimension[0] : dimension[1]
-    end
-
-    def pdf_width
-      landscape? ? dimension[1] : dimension[0]
     end
 
     # pdf_margin returns the page margins as required by Prawn: [top, right, bottom, left]
     def pdf_margin
-      if landscape?
-        [ margin_left, margin_top, margin_right, margin_bottom ]
-      else
-        [ margin_top, margin_right, margin_bottom, margin_left ]
-      end
+      [ margin_top, margin_right, margin_bottom, margin_left ]
+    end
+
+    # the same as pdf_margin, except rotated 90° to switch to landscape
+    def pdf_margin_landscape
+      [ margin_left, margin_top, margin_right, margin_bottom ]
     end
 
     def margin_left

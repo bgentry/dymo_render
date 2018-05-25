@@ -48,11 +48,17 @@ class DymoRender
   end
 
   def orientation
-    if doc.css('PaperOrientation').first&.text == 'Landscape'
-      'landscape'
-    else
-      'portrait'
+    @orientation ||= begin
+      if doc.css("PaperOrientation").first&.text == "Landscape"
+        :landscape
+      else
+        :portrait
+      end
     end
+  end
+
+  def landscape?
+    orientation == :landscape
   end
 
   def page_size
@@ -77,18 +83,30 @@ class DymoRender
 
   private
 
+  def pdf_margin
+    @pdf_margin ||= landscape? ? page_size.pdf_margin_landscape : page_size.pdf_margin
+  end
+
+  def pdf_height
+    landscape? ? page_size.dimension[0] : page_size.dimension[1]
+  end
+
+  def pdf_width
+    landscape? ? page_size.dimension[1] : page_size.dimension[0]
+  end
+
   def build_pdf
     @pdf = Prawn::Document.new(
       page_size: page_size.dimension,
-      margin: page_size.pdf_margin,
-      page_layout: page_size.layout,
+      margin: pdf_margin,
+      page_layout: orientation,
     )
   end
 
   def render_object(object_info)
     bounds = object_info.css('Bounds').first.attributes
-    x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - page_size.pdf_margin[3]
-    y = page_size.pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
+    x = (bounds['X'].value.to_f * PDF_POINT / TWIP) - pdf_margin[3]
+    y = pdf_height - (bounds['Y'].value.to_f * PDF_POINT / TWIP)
     width = (bounds['Width'].value.to_f * PDF_POINT / TWIP)
     height = (bounds['Height'].value.to_f * PDF_POINT / TWIP)
 
