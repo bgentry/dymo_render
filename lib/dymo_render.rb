@@ -25,12 +25,13 @@ class DymoRender
   # 72 PDF points per inch
   PDF_POINT = 72.0
 
-  attr_reader :doc, :font_dirs, :pdf
+  attr_reader :doc, :font_dirs, :params, :pdf, :qr_level
 
-  def initialize(xml:, font_dirs: FONT_DIRS, params: {})
+  def initialize(xml:, font_dirs: FONT_DIRS, params: {}, qr_level: nil)
     @xml = xml
     @font_dirs = font_dirs
     @params = params
+    @qr_level = qr_level
     @doc = Nokogiri::XML(xml)
   end
 
@@ -255,7 +256,7 @@ class DymoRender
     case barcode_type = barcode_object.css('Type').first.text
     when 'QRCode'
       content = barcode_object.css('Text').first.text
-      code = Barby::QrCode.new(content, level: :m)
+      code = Barby::QrCode.new(content, level: qr_level)
       outputter = Barby::PrawnOutputter.new(code)
       num_dots = outputter.full_width # number of dots in QR
 
